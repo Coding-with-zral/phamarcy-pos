@@ -10,11 +10,21 @@
     "dev:client": "cd client && npx vite --host",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build": "cd client && npm install && npx vite build",
-    "deploy": "cd server && npx wrangler deploy",
+    "deploy": "wrangler deploy",
     "db:create": "cd server && npx wrangler d1 create pharmacy-pos-db",
-    "db:seed": "cd server && npx wrangler d1 execute pharmacy-pos-db --file=./scripts/seed.sql"
+    "db:seed": "cd server && npx wrangler d1 execute pharmacy-pos-db --file=./scripts/seed.sql",
+    "preview": "wrangler dev"
   },
-  "keywords": ["pharmacy", "pos", "kenya", "cloudflare", "d1"],
+  "keywords": [
+    "pharmacy",
+    "pos",
+    "kenya",
+    "cloudflare",
+    "d1"
+  ],
   "author": "Hauzral",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^4.110.0"
+  }
 }
