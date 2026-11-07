@@ -8,6 +8,7 @@ account_id = "72e2e322ec1c23d1c20de1f2b0cf8cb5"
 [assets]
 directory = "dist"
 binding = "ASSETS"
+not_found_handling = "single-page-application"
 
 # Cloudflare D1 Database binding
 [[d1_databases]]

@@ -12,6 +12,10 @@ const TABLES = [
     avatar TEXT,
     is_active INTEGER DEFAULT 1,
     two_factor_enabled INTEGER DEFAULT 0,
+    reset_token TEXT,
+    reset_expires TEXT,
+    pin TEXT,
+    last_login TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
   )`,

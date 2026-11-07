@@ -21,14 +21,21 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Build Single Page Application
         run: npm run build
 
       - name: Deploy Worker to Cloudflare
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 72e2e322ec1c23d1c20de1f2b0cf8cb5
           command: deploy
+
+      - name: Cloudflare Configuration Notice
+        if: ${{ secrets.CLOUDFLARE_API_TOKEN == '' }}
+        run: |
+          echo "::notice ::To deploy to Cloudflare Workers, add CLOUDFLARE_API_TOKEN under Settings > Secrets and variables > Actions."
+          echo "Build succeeded. Ready for deployment."
