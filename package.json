@@ -1,30 +1,42 @@
 {
-  "name": "hauzral-pharmacy-pos",
-  "version": "1.0.0",
-  "description": "Hauzral Pharmacy POS - Complete Pharmacy Management System",
+  "name": "pharmacy-pos",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "install:client": "cd client && npm install",
-    "install:server": "cd server && npm install",
-    "install:all": "npm run install:client && npm run install:server",
-    "dev:server": "cd server && npx wrangler dev",
-    "dev:client": "cd client && npx vite --host",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "build": "cd client && npm install && npx vite build",
-    "deploy": "wrangler deploy",
-    "db:create": "cd server && npx wrangler d1 create pharmacy-pos-db",
-    "db:seed": "cd server && npx wrangler d1 execute pharmacy-pos-db --file=./scripts/seed.sql",
-    "preview": "wrangler dev"
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit"
   },
-  "keywords": [
-    "pharmacy",
-    "pos",
-    "kenya",
-    "cloudflare",
-    "d1"
-  ],
-  "author": "Hauzral",
-  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/bcryptjs": "^2.4.6",
+    "@vitejs/plugin-react": "^6.1.1",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "framer-motion": "^14.9.1",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "react-hot-toast": "^2.6.1",
+    "react-router-dom": "^7.18.5",
+    "recharts": "^3.10.1",
+    "vite": "^8.3.0"
+  },
   "devDependencies": {
-    "wrangler": "^4.110.0"
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^7.0.2",
+    "@types/express": "^4.17.21"
   }
 }

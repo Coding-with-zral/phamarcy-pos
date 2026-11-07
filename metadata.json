@@ -1,0 +1,6 @@
+{
+  "name": "Hauzral Pharmacy POS & Healthcare ERP",
+  "description": "Enterprise-grade Pharmacy Point of Sale & Clinical Dispensing System with Google Sign-In, real-time stock control, batch expiry tracking, and Gemini AI clinical assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

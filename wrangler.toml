@@ -1,15 +1,15 @@
 name = "phamarcy-pos"
-main = "server/src/worker.js"
+main = "server/worker.js"
 compatibility_date = "2025-01-01"
 compatibility_flags = ["nodejs_compat"]
 account_id = "72e2e322ec1c23d1c20de1f2b0cf8cb5"
 
-# Static assets (frontend)
+# Static assets (production frontend build)
 [assets]
-directory = "client/dist"
+directory = "dist"
 binding = "ASSETS"
 
-# D1 Database binding
+# Cloudflare D1 Database binding
 [[d1_databases]]
 binding = "DB"
 database_name = "pharmacy-pos-db"
