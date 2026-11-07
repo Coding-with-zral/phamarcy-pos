@@ -27,7 +27,9 @@ jobs:
         run: npm run build
 
       - name: Deploy Worker to Cloudflare
-        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        if: env.CLOUDFLARE_API_TOKEN != ''
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -35,7 +37,9 @@ jobs:
           command: deploy
 
       - name: Cloudflare Configuration Notice
-        if: ${{ secrets.CLOUDFLARE_API_TOKEN == '' }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        if: env.CLOUDFLARE_API_TOKEN == ''
         run: |
-          echo "::notice ::To deploy to Cloudflare Workers, add CLOUDFLARE_API_TOKEN under Settings > Secrets and variables > Actions."
-          echo "Build succeeded. Ready for deployment."
+          echo "::notice ::To enable direct deployment to Cloudflare Workers (phamarcy-pos.kipkoechkev6.workers.dev), add CLOUDFLARE_API_TOKEN under GitHub Settings > Secrets and variables > Actions."
+          echo "Build and typecheck passed successfully."
