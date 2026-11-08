@@ -19,13 +19,14 @@ async function request<T>(url: string, options: RequestInit = {}): Promise<T> {
   if (response.status === 401) {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    window.location.href = '/login'
-    throw new Error('Unauthorized')
+    if (token) window.location.href = '/login'
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || errorData.error || 'Invalid username or password')
   }
 
   if (!response.ok) {
-    const errorData = await response.json().catch(() => ({ message: 'Request failed' }))
-    throw new Error(errorData.message || `HTTP error ${response.status}`)
+    const errorData = await response.json().catch(() => ({}))
+    throw new Error(errorData.message || errorData.error || `Request failed (${response.status})`)
   }
 
   return response.json()
