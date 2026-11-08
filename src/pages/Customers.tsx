@@ -80,8 +80,8 @@ export default function Customers() {
   const fetchCustomers = useCallback(async () => {
     try {
       setLoading(true)
-      const res = await get<Customer[]>('/customers')
-      setCustomers(res)
+      const res = await get<Customer[] | { customers: Customer[] }>('/customers')
+      setCustomers(Array.isArray(res) ? res : res.customers)
     } catch {
       toast.error('Failed to load customers')
     } finally {

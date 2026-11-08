@@ -9,6 +9,7 @@ import { get, post } from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import { Medicine } from '../types';
 import toast from 'react-hot-toast';
+import POSNavigation from '../components/POSNavigation';
 
 interface CartItem {
   id: string;
@@ -425,7 +426,9 @@ const POS: React.FC = () => {
   };
 
   return (
-    <div className="h-screen flex bg-gray-100 overflow-hidden">
+    <div className="flex h-dvh flex-col overflow-hidden bg-gray-100">
+      <POSNavigation />
+      <div className="flex min-h-0 flex-1 overflow-hidden">
       {/* ============ LEFT SIDE - Products ============ */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
@@ -1090,6 +1093,7 @@ const POS: React.FC = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
