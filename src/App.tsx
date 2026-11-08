@@ -1,6 +1,6 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
-import Login from './pages/Login'
+import Login from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
 import POS from './pages/POS'
 import Inventory from './pages/Inventory'
