@@ -27,3 +27,138 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 #f1f5f9;
 }
+
+/* Login experience refresh */
+body:has(input[autocomplete="username"]) {
+  background: #f5f8f6;
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br {
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 12% 18%, rgba(52, 211, 153, 0.18), transparent 34%),
+    radial-gradient(ellipse at 85% 85%, rgba(45, 212, 191, 0.13), transparent 32%),
+    linear-gradient(135deg, #063b36 0%, #0c292e 52%, #10202b 100%) !important;
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .absolute.inset-0 {
+  opacity: 0.35;
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .hidden.lg\:flex {
+  width: 54%;
+  padding: clamp(2rem, 5vw, 5.5rem);
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .hidden.lg\:flex h1 {
+  letter-spacing: -0.04em;
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .hidden.lg\:flex h2 {
+  max-width: 13ch;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .hidden.lg\:flex .grid > div {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.12);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .hidden.lg\:flex .grid > div:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.11);
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .flex-1.flex.items-center.justify-center {
+  padding: clamp(1rem, 4vw, 3.5rem);
+}
+
+body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br .max-w-md.bg-white {
+  max-width: 29rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 1.5rem;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.28), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white > .flex.border-b {
+  padding: 0.45rem 0.55rem 0;
+  background: #f8faf9;
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white > .flex.border-b button {
+  border-radius: 0.85rem 0.85rem 0 0;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white > .p-6.sm\:p-8 {
+  padding: clamp(1.35rem, 4vw, 2rem);
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white input:not([type="checkbox"]),
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white select {
+  min-height: 2.85rem;
+  border-radius: 0.8rem;
+  border-color: #dce5e1;
+  background-color: #f8faf9;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white input:not([type="checkbox"]):focus,
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white select:focus {
+  border-color: #10a878;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(16, 168, 120, 0.12);
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white form button[type="submit"] {
+  min-height: 2.9rem;
+  border-radius: 0.85rem;
+  background: linear-gradient(110deg, #059669, #0f9f83);
+  box-shadow: 0 8px 18px rgba(5, 150, 105, 0.2);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white form button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+  box-shadow: 0 11px 22px rgba(5, 150, 105, 0.25);
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white form button[type="submit"]:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white .bg-gradient-to-r.from-blue-50\/80 {
+  border-color: #dcebe5;
+  background: linear-gradient(120deg, #f1f8f6, #f4f8fc);
+}
+
+body:has(input[autocomplete="username"]) #root .max-w-md.bg-white button:focus-visible {
+  outline: 3px solid rgba(16, 168, 120, 0.35);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1023px) {
+  body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br {
+    justify-content: center;
+    padding: 1rem 0;
+  }
+
+  body:has(input[autocomplete="username"]) #root .min-h-screen.flex.bg-gradient-to-br > .flex-1.flex.items-center.justify-center {
+    flex: none;
+    width: min(100%, 34rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has(input[autocomplete="username"]) #root *,
+  body:has(input[autocomplete="username"]) #root *::before,
+  body:has(input[autocomplete="username"]) #root *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
