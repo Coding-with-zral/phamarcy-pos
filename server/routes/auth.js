@@ -57,9 +57,8 @@ export async function authRoutes(request, env, path, db) {
       return json({ error: 'No active staff account found with this username or email' }, 404);
     }
 
-    // Generate 6-digit recovery PIN
     const resetPin = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour validity
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
 
     await run(
       db,
@@ -67,7 +66,6 @@ export async function authRoutes(request, env, path, db) {
       [resetPin, expiresAt, user.id]
     );
 
-    // Insert security audit notification
     await run(
       db,
       `INSERT INTO notifications (user_id, type, title, message, is_read, priority, created_at)
@@ -202,7 +200,6 @@ export async function authRoutes(request, env, path, db) {
     const body = await request.json().catch(() => ({}));
     let { email, name, picture, credential, role = 'pharmacist' } = body;
 
-    // Decode Google JWT credential if supplied via GIS One Tap or Google Sign-In
     if (credential && typeof credential === 'string') {
       try {
         const parts = credential.split('.');
@@ -228,7 +225,6 @@ export async function authRoutes(request, env, path, db) {
     const now = new Date().toISOString();
 
     if (!user) {
-      // Create user account automatically from Google profile
       const username = email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '') + '_' + Math.floor(Math.random() * 900 + 100);
       const randomPassword = bcrypt.hashSync(Math.random().toString(36) + 'Hauzral@2026', 10);
       const fullName = name || email.split('@')[0];
@@ -244,7 +240,6 @@ export async function authRoutes(request, env, path, db) {
       if (!user.is_active) {
         return json({ error: 'Your pharmacy account has been deactivated. Please contact the administrator.' }, 403);
       }
-      // Update avatar or name if provided, and last_login
       await run(db, 'UPDATE users SET avatar = COALESCE(?, avatar), last_login = ?, updated_at = ? WHERE id = ?', [picture || null, now, now, user.id]);
       user.last_login = now;
       if (picture && !user.avatar) {
@@ -264,7 +259,6 @@ export async function authRoutes(request, env, path, db) {
 
   if (method === 'POST' && segment === 'register') {
     const authUser = await authenticate(request, env);
-
     const body = await request.json().catch(() => ({}));
     const { username, password: rawPassword, full_name, role, email, phone } = body;
 
@@ -276,10 +270,15 @@ export async function authRoutes(request, env, path, db) {
       return json({ error: 'Password must be at least 6 characters' }, 400);
     }
 
+    const existingUserCount = await first(db, 'SELECT COUNT(*) as total FROM users');
+    const noUsersExist = !existingUserCount || Number(existingUserCount.total) === 0;
+
     if (!authUser) {
-      const existingAdmin = await first(db, "SELECT id FROM users WHERE role = 'admin' LIMIT 1");
-      if (existingAdmin) {
-        return json({ error: 'Registration requires admin authorization' }, 403);
+      if (!noUsersExist) {
+        const existingAdmin = await first(db, "SELECT id FROM users WHERE role = 'admin' LIMIT 1");
+        if (existingAdmin) {
+          return json({ error: 'Registration requires admin authorization' }, 403);
+        }
       }
     } else if (authUser.role !== 'admin' && authUser.role !== 'manager') {
       return json({ error: 'Insufficient permissions' }, 403);
@@ -292,7 +291,6 @@ export async function authRoutes(request, env, path, db) {
 
     const hashedPassword = bcrypt.hashSync(rawPassword, 10);
     const now = new Date().toISOString();
-
     const assignedRole = authUser ? (role || 'cashier') : 'admin';
 
     const info = await run(
@@ -361,7 +359,7 @@ export async function authRoutes(request, env, path, db) {
 
     if (rawPassword) {
       const hashedPassword = bcrypt.hashSync(rawPassword, 10);
-      await run(db, `UPDATE users SET full_name = COALESCE(?, full_name), role = COALESCE(?, role), email = COALESCE(?, email), phone = COALESCE(?, phone), avatar = COALESCE(?, avatar), is_active = COALESCE(?, is_active), password = ?, updated_at = ? WHERE id = ?`,
+      await run(db, `UPDATE users SET full_name = COALESCE(?, full_name), role = COALESCE(?, role), email = COALESCE(?, email), phone = COALESCE(?, phone), avatar = COALESCE(?, avatar), is_active = COALESCE(?, is_active), password = COALESCE(?, password), updated_at = ? WHERE id = ?`,
         [full_name, role, email, phone, avatar, is_active !== undefined ? (is_active ? 1 : 0) : null, hashedPassword, now, id]);
     } else {
       await run(db, `UPDATE users SET full_name = COALESCE(?, full_name), role = COALESCE(?, role), email = COALESCE(?, email), phone = COALESCE(?, phone), avatar = COALESCE(?, avatar), is_active = COALESCE(?, is_active), updated_at = ? WHERE id = ?`,
