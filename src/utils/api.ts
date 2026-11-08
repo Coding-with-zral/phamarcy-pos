@@ -19,7 +19,7 @@ async function request<T>(url: string, options: RequestInit = {}): Promise<T> {
   if (response.status === 401) {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
-    if (token) window.location.href = '/login'
+    if (token && url.split('?')[0] !== '/auth/login') window.location.href = '/login'
     const errorData = await response.json().catch(() => ({}))
     throw new Error(errorData.message || errorData.error || 'Invalid username or password')
   }
